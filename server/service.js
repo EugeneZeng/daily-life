@@ -45,12 +45,24 @@ let pointItemService = {
         }
     },
     updatePointItem(params) {
-
+        return PointItems.findOne({ where: { uuid: params.uuid } })
+            .then(pointItem => {
+                let accepts = ["name", "point", "status"];
+                accepts.forEach(accept => params[accept] && (pointItem[accept] = params[accept]));
+                return pointItem.save();
+            });
+    },
+    deletePointItem(uuid) {
+        return this.updatePointItem({ uuid: uuid, status: 0 });
     }
 };
 
 module.exports = {
     addUser: userService.addUser,
     getUser: userService.getUser,
-    updateUser: userService.updateUser
+    updateUser: userService.updateUser,
+    addPointItem: pointItemService.addPointItem,
+    getPointItems: pointItemService.getPointItems,
+    updatePointItem: pointItemService.updatePointItem,
+    deletePointItem: pointItemService.deletePointItem
 };

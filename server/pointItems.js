@@ -3,19 +3,22 @@ const sequelize = require("./db");
 
 const PointItems = sequelize.define('pointItems', {
     uuid: {
-        type: Sequelize.DataTypes.UUID,
-        defaultValue: Sequelize.DataTypes.UUIDV1,
+        type: DataTypes.INTEGER,
+        defaultValue: function() {
+            return Date.now();
+        },
         primaryKey: true
     },
-    itemName: {
+    name: {
         type: Sequelize.STRING
     },
     point: {
         type: Sequelize.NUMBER,
         defaultValue: 0
     },
-    updateDate: {
-        type: Sequelize.DATE
+    status: {
+        type: Sequelize.NUMBER,
+        defaultValue: 1
     }
 });
 
