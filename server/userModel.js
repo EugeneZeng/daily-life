@@ -1,29 +1,28 @@
 const Sequelize = require("Sequelize");
-const sequelize = require("./db");
-const DataTypes = Sequelize.DataTypes;
+const db = require("./db");
 
-const User = sequelize.define('user', {
+const User = db.define('user', {
     uuid: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         defaultValue: function() {
             return Date.now();
         },
         primaryKey: true
     },
     name: {
-        type: DataTypes.STRING
+        type: Sequelize.STRING
     },
     role: {
-        type: DataTypes.STRING //values: "kits", "parents", "family"
+        type: Sequelize.STRING //values: "kits", "parents", "family"
     },
     own: {
-        type: DataTypes.STRING
+        type: Sequelize.STRING
     },
     face: {
-        type: DataTypes.STRING
+        type: Sequelize.STRING
     },
     updateDate: {
-        type: DataTypes.DATE
+        type: Sequelize.DATE
     }
 });
 

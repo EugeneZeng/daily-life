@@ -13,14 +13,12 @@
             id: String,
             users: Array
         },
-        data(){
-            return {
-                user: null
+        
+        computed: {
+            user(){
+                let _this = this;
+                return this.users.find(item => item.uuid == _this.id);
             }
-        },
-        mounted(){
-            let _this = this;
-            this.user = this.users.find(item => item.uuid == _this.id);
         }
     }
 </script>

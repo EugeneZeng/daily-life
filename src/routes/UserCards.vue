@@ -7,7 +7,9 @@
         :img-alt="user.name"
         img-fluid
         style="max-width: 20rem;"
-        align="center"></b-card>
+        align="center">
+            <b-button :to="user.uuid.toString()" variant="primary">Go</b-button>
+        </b-card>
     </b-card-group>
 </template>
 <script>
@@ -18,9 +20,6 @@
     }
 </script>
 <style scoped>
-.card{
-  cursor: pointer;
-}
 .card .card-img{
   margin: 0 auto;
 }
