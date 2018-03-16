@@ -7,7 +7,8 @@ import User from './routes/User.vue';
 
 const routes = [
     { path: '/', component: UserCards },
-    { path: '/:id', component: User, props: true }
+    { path: '/:id', component: User, props: true },
+    { path: '/vedios', component: vedios }
 ];
 
 const router = new VueRouter({ routes });

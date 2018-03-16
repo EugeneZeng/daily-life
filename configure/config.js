@@ -8,5 +8,6 @@ module.exports = {
         },
         // SQLite only
         storage: 'data.db'
-    }
+    },
+    vedioPath: "/vedios"
 };

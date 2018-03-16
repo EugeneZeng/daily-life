@@ -11,5 +11,8 @@ export default {
     },
     addUser(params) {
         return axios({ method: 'post', url: `${path}/user`, data: params });
+    },
+    getVedioList() {
+        return axios({ method: 'get', url: `${path}/vedioList` });
     }
 };
