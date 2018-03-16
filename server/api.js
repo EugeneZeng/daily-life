@@ -5,7 +5,7 @@ const config = require("../configure/config");
 const fs = require("fs");
 
 function scandir(dirpath) {
-    let result = [];
+    let result = {};
     let isNotExist = true;
     console.log(dirpath)
     try {
@@ -23,11 +23,9 @@ function scandir(dirpath) {
         let currentPath = `${dirpath}/${item}`;
         let stat = fs.statSync(currentPath);
         if(stat.isDirectory()){
-            let dir = {};
-            dir[item] = scandir(currentPath);
-            result.push(dir);
+            result[item] = scandir(currentPath);
         } else if(stat.isFile){
-            result.push(currentPath);
+            result[item] = currentPath;
         }
     });
     return result;
