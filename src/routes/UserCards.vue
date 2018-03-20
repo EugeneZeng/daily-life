@@ -1,6 +1,7 @@
 <template>
   <b-card-group v-if="users.length > 0" deck>
       <b-card v-for="user in users" 
+        :key="user.uuid"
         :id="user.uuid"
         :title="user.name"
         :img-src="user.face"
@@ -13,14 +14,15 @@
     </b-card-group>
 </template>
 <script>
-    export default{
-        name: "userCards",
-        props: {
-            users: Array        }
-    }
+export default {
+  name: "userCards",
+  props: {
+    users: Array
+  }
+};
 </script>
 <style scoped>
-.card .card-img{
+.card .card-img {
   margin: 0 auto;
 }
 </style>

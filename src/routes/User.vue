@@ -7,18 +7,18 @@
   </b-card>
 </template>
 <script>
-    export default{
-        name: 'User',
-        props: {
-            id: String,
-            users: Array
-        },
-        
-        computed: {
-            user(){
-                let _this = this;
-                return this.users.find(item => item.uuid == _this.id);
-            }
-        }
+export default {
+  name: "User",
+  props: {
+    id: String,
+    users: Array
+  },
+
+  computed: {
+    user() {
+      let _this = this;
+      return this.users.find(item => item.uuid == _this.id);
     }
+  }
+};
 </script>

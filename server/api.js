@@ -7,24 +7,24 @@ const fs = require("fs");
 function scandir(dirpath) {
     let result = {};
     let isNotExist = true;
-    console.log(dirpath)
     try {
         fs.accessSync(dirpath, fs.constants.R_OK);
         isNotExist = false;
     } catch (err) {
+        console.log(dirpath);
         console.error(err);
         isNotExist = true;
     }
-    if(isNotExist){
+    if (isNotExist) {
         return null;
     }
     let ls = fs.readdirSync(dirpath);
     ls.forEach(item => {
         let currentPath = `${dirpath}/${item}`;
         let stat = fs.statSync(currentPath);
-        if(stat.isDirectory()){
+        if (stat.isDirectory()) {
             result[item] = scandir(currentPath);
-        } else if(stat.isFile){
+        } else if (stat.isFile) {
             result[item] = currentPath;
         }
     });
@@ -88,8 +88,8 @@ router.put("/user", (req, res) => {
         });
 });
 
-router.get("/vedioList", (req, res) => {
-    let ls = scandir(config.vedioPath);
+router.get("/videoList", (req, res) => {
+    let ls = scandir(config.videoPath);
     res.json(ls);
 })
 module.exports = router;

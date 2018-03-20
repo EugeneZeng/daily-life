@@ -4,14 +4,26 @@ import BootstrapVue from 'bootstrap-vue';
 import App from './App.vue';
 import UserCards from './routes/UserCards.vue';
 import User from './routes/User.vue';
+import videos from './routes/videos.vue';
 
-const routes = [
-    { path: '/', component: UserCards },
-    { path: '/:id', component: User, props: true },
-    { path: '/vedios', component: vedios }
+const routes = [{
+        path: '/',
+        component: UserCards
+    },
+    {
+        path: '/videos',
+        component: videos
+    },
+    {
+        path: '/:id',
+        component: User,
+        props: true
+    }
 ];
 
-const router = new VueRouter({ routes });
+const router = new VueRouter({
+    routes
+});
 
 Vue.use(BootstrapVue);
 Vue.use(VueRouter);
