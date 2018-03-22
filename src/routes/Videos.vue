@@ -29,7 +29,7 @@
                 <b-embed type="video"
                         v-show="selectedvideo!=''"
                         aspect="16by9"
-                        controls  :src="videoSrc"
+                        controls :src="videoSrc"
                         allowfullscreen
                 >
                 </b-embed>
@@ -83,6 +83,7 @@ export default {
       this.selectedCourse = course;
       this.lessionList = Object.keys(this.videos[this.selectedCourse]);
       this.selectedLession = this.lessionList[0];
+      this.onLessionChange(this.selectedLession);
     },
     onLessionChange(lession) {
       this.selectedLession = lession;
@@ -93,16 +94,53 @@ export default {
         return /\.mp4$/.test(item);
       });
       this.selectedvideo = this.videoList[0];
+      this.onvideoChange(this.selectedvideo);
     },
     onvideoChange(video) {
-      this.selectedvideo = video;
       this.videoSrc = this.videos[this.selectedCourse][this.selectedLession][
         this.selectedvideo
       ];
-      this.subtitleSrc = this.videos[this.selectedCourse][this.selectedLession][
+    },
+    downloadFile(url) {
+      return new Promise(function(resolve, reject) {
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", url, true);
+        xhr.responseType = "blob";
+        xhr.onreadystatechange = function(e) {
+          if (this.readyState == 4 && this.status == 200) {
+            resolve(new Blob([this.response]));
+          }
+        };
+        xhr.onerror = function(e) {
+          reject(this);
+        };
+        xhr.send();
+      });
+    },
+    getWebVtt() {
+      let _this = this;
+      let srtURL = this.videos[this.selectedCourse][this.selectedLession][
         this.selectedvideo
       ];
-      this.subtitleSrc = this.subtitleSrc.replace(".mp4", "-subtitle-en.srt");
+      srtURL = srtURL.replace(".mp4", "-subtitle-en.srt");
+      this.downloadFile(srtURL)
+        .then(file => {
+          //this.subtitleSrc
+          console.log(file);
+          let vttConverter = new VTTConverter(file);
+          vttConverter
+            .getURL()
+            .then(function(url) {
+              //  _this.subtitleSrc = url;
+              console.log(url);
+            })
+            .catch(function(err) {
+              console.error(err);
+            });
+        })
+        .catch(e => {
+          console.error(e);
+        });
     }
   }
 };
